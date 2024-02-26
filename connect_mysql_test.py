@@ -32,6 +32,7 @@ result=cursor.fetchall()
 print(result)
 
 
+
 # index 파일 최신화 -> 깃 엣션으로 넘어갈 가능성이 있음..
 
 
