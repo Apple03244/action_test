@@ -1,0 +1,62 @@
+# 주석은 python하고 동일
+
+#-----------------#
+
+# 들여쓰기는 2칸 혹은 4칸(tab)
+person:
+  name : Smart GaGa
+  job : None
+  skills:
+    - docker
+    - python
+    - yaml
+    - sql
+
+#-----------------#
+
+# 데이터 정의 : jason 과 마찬가지로 key,value 형식
+# 주의사항 : key와 value 사이엔 _만큼 들여쓰기 필수
+
+#-----------------#
+
+# 배열 : -로 표시
+
+#-----------------#
+
+# 참,거짓 : yes, no ,true, false, True, False
+
+#-----------------#
+
+# number & string
+number: 1.2
+string: "1.2"
+# 문자는 그냥 써도 되지만  ":"가 들어간 경우 아래와 같이 표시 
+default_string: abc
+special_case: "why:"
+
+#-----------------#
+
+# list
+
+# 방법 1 block format
+
+- test1
+- test2
+- test3
+
+# 방법 2
+[test1,test2,test3]
+
+#-----------------#
+
+# hash
+
+name: abc
+age: 28
+
+{name: abc, age: 28}
+
+#-----------------#
+
+
+
