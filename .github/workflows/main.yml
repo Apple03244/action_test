@@ -2,6 +2,7 @@ name : Test GitHub Action
 
 run-name : Play by ${{ github.actor }}
 
+#trigger 는 차후 변경될 수 있음
 on :
   schedule :
     - cron : "00 15 * * *" #UTC 기준 : 한국시간으로 5:00
@@ -9,7 +10,7 @@ on :
 
 
 jobs:
-  run-code:
+  python-code: # python 영역
     runs-on: ubuntu-latest
 
     steps:
@@ -22,21 +23,36 @@ jobs:
         with:
           python-version: 3.x
        
-      #가상환경에 필요한 시스탬 종속성(?)
+      # 가상환경에 필요한 시스탬 종속성(?)
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y build-essential libffi-dev
 
       - name: Install Python dependencies
-      #파이썬 업데이트 및 필요한 모듈 설치
+      # 파이썬 업데이트 및 필요한 모듈 설치
         run:  |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      # 파이썬 파일 실행
+      - name: Run Python_script
+        run : python testpy.py
 
-      #필요한지 확인해봐야함
+  mysql-code: # mysql 영역 : 위의 파이썬 코드의 종속성이 필요(병력X)
+    needs: python-code
+    runs-on : ubuntu-latest
 
-      # - uses: mirromutth/mysql-action@v1.1
-      #   with:
-      #     host port: 3306
-      #     container port: 3306
-      #     mysql database: 'testdb'
-      #     mysql root password: ${{ secrets.DB_PASSWORD }}
+    steps:
+      # mysql 구동환경 구축
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: ${{ secrets.MYSQL_ENDPOINT }}
+          port: 3306
+          user_name: ${{ secrets.MYSQL_USER }}
+          mysql database: 'test'
+          mysql root password: ${{ secrets.MYSQL_PASSWORD }}
+
+      - name : Insert data into mysql
+        run:  |
+          mysql -h ${{ secrets.MYSQL_ENDPOINT }} -u ${{ secrets.MYSQL_USER }} 
+          -p${{ secrets.MYSQL_PASSWORD }}
+          -e "LOAD DATA INFILE '/github/workspace/test_architecture.csv' 
+          INTO TABLE tag_test FIELDS TERMINATED BY ',' ENCLOSED BY '\"' LINES TERMINATED BY '\n' (rest_name, tag, people_cnt);"
