@@ -47,7 +47,7 @@ jobs:
         with:
           host port: ${{ secrets.MYSQL_ENDPOINT }}
           port: 3306
-          user_name: ${{ secrets.MYSQL_USER }}
+          mysql user: ${{ secrets.MYSQL_USER }}
           mysql database: 'test'
           mysql root password: ${{ secrets.MYSQL_PASSWORD }}
 
