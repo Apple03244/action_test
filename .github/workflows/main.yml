@@ -52,7 +52,5 @@ jobs:
 
       - name : Insert data into mysql
         run:  |
-          mysql -h ${{ secrets.MYSQL_ENDPOINT }} -u ${{ secrets.MYSQL_USER }} 
-          -p${{ secrets.MYSQL_PASSWORD }}
-          -e "LOAD DATA INFILE '/github/workspace/test_architecture.csv' 
+          "LOAD DATA INFILE '/github/workspace/test_architecture.csv' 
           INTO TABLE tag_test FIELDS TERMINATED BY ',' ENCLOSED BY '\"' LINES TERMINATED BY '\n' (rest_name, tag, people_cnt);"
