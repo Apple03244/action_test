@@ -57,7 +57,7 @@ jobs:
 
       - name : Let it test
         run:  |
-          mysql -u ${{ secrets.MYSQL_USER }} -p ${{ secrets.MYSQL_PASSWORD }} -h ${{ secrets.MYSQL_ENDPOINT }}
+          mysql -u admin -p lunchlab0219 -h lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com
 
 
 #------------임시-------------#
