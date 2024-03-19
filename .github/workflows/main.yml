@@ -57,8 +57,7 @@ jobs:
 
       - name : Let it test
         run:  |
-          mysql -h lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com -u admin -p
-          lunchlab0219
+          mysql -h lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com -u admin -p lunchlab0219
 
 
 #------------임시-------------#
