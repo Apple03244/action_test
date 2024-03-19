@@ -40,7 +40,7 @@ jobs:
       # sql 기본값 설정
       - name: Set up mysql connect
         run:  |
-        echo {"host":${{ secrets.MYSQL_ENDPOINT }},"port":3306,"user":${{ secrets.MYSQL_USER }},"password":${{ secrets.MYSQL_PASSWORD }}} > ./mysql_info.json
+        echo '{"host":'${{ secrets.MYSQL_ENDPOINT }}',"port":3306,"user":'${{ secrets.MYSQL_USER }}',"password":'${{ secrets.MYSQL_PASSWORD }}'}' > ./mysql_info.json
 
   mysql-code:
     needs: python-code
