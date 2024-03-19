@@ -1,1 +1,8 @@
-pandas
+selenium==4.17.2
+bs4==4.12.3
+numpy==1.26.2
+pandas==2.1.4
+webdriver_manager==4.0.1
+chromedriver_autoinstaller
+requests==2.31.0
+mysql-connector-python

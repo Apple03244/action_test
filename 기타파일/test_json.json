@@ -1,0 +1,1 @@
+{"host":${{ secrets.MYSQL_ENDPOINT }},"port":3306,"user":${{ secrets.MYSQL_USER }},"passward":${{ secrets.MYSQL_PASSWORD }}}

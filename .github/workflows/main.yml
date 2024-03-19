@@ -27,7 +27,7 @@ jobs:
       # 가상환경에 필요한 시스탬 종속성(?)
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y build-essential libffi-dev
-
+      
       - name: Install Python dependencies
       # 파이썬 업데이트 및 필요한 모듈 설치
         run:  |
@@ -37,6 +37,16 @@ jobs:
       - name: Run Python_script
         run : python testpy.py
 
+      # sql 기본값 설정
+      - name: Set up mysql connect
+        run:  |
+        echo {"host":${{ secrets.MYSQL_ENDPOINT }},"port":3306,"user":${{ secrets.MYSQL_USER }},"passward":${{ secrets.MYSQL_PASSWORD }}} > mysql_info.json
+
+
+
+
+
+#------------임시-------------#
   mysql-code: # mysql 영역 : 위의 파이썬 코드의 종속성이 필요(병력X)
     needs: python-code
     runs-on : ubuntu-latest
@@ -47,7 +57,7 @@ jobs:
         with:
           host port: ${{ secrets.MYSQL_ENDPOINT }}
           mysql user: ${{ secrets.MYSQL_USER }}
-          container port: 3306:3306
+          container port: 3306
           mysql database: 'test'
           mysql password: ${{ secrets.MYSQL_PASSWORD }}
 
