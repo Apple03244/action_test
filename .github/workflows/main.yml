@@ -40,26 +40,39 @@ jobs:
       # sql 기본값 설정
       - name: Set up mysql connect
         run:  |
-        echo {"host":${{ secrets.MYSQL_ENDPOINT }},"port":3306,"user":${{ secrets.MYSQL_USER }},"passward":${{ secrets.MYSQL_PASSWORD }}} > mysql_info.json
+        echo {"host":${{ secrets.MYSQL_ENDPOINT }},"port":3306,"user":${{ secrets.MYSQL_USER }},"password":${{ secrets.MYSQL_PASSWORD }}} > mysql_info.json
 
+  mysql-code:
+    needs: python-code
+    runs-on: ubuntu-latest
 
+    steps:
 
+      # 직접 설치
+      - name: Set up mysql
+        run:  |
+          sudo apt-get update
+          sudo apt-get install -y mysql-server
+
+      - name : Let it test
+        run:  |
+          mysql -u ${{ secrets.MYSQL_USER }} -p ${{ secrets.MYSQL_PASSWORD }} -h ${{ secrets.MYSQL_ENDPOINT }}
 
 
 #------------임시-------------#
-  mysql-code: # mysql 영역 : 위의 파이썬 코드의 종속성이 필요(병력X)
-    needs: python-code
-    runs-on : ubuntu-latest
+  # mysql-code: # mysql 영역 : 위의 파이썬 코드의 종속성이 필요(병력X)
+  #   needs: python-code
+  #   runs-on : ubuntu-latest
 
-    steps:
-      # mysql 구동환경 구축
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          host port: "lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com"
-          mysql user: "admin"
-          container port: 3306
-          mysql database: 'test'
-          mysql password: "lunchlab0219"
+  #   steps:
+  #     # mysql 구동환경 구축
+  #     - uses: mirromutth/mysql-action@v1.1
+  #       with:
+  #         host port: "lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com"
+  #         mysql user: "admin"
+  #         container port: 3306
+  #         mysql database: 'test'
+  #         mysql password: "..."
 
       # - name : Insert data into mysql
       #   run:  |
