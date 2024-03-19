@@ -1,7 +1,7 @@
 import mysql.connector as mysql
 import json
 
-with open("test_json.json","r") as f:
+with open("mysql_info.json","r") as f:
     input = f.read()
 
 test=json.loads(input)
