@@ -11,7 +11,7 @@ on :
 
 
 jobs:
-  python-code: # python 영역
+  python-base-code: # python 기초 영역
     runs-on: ubuntu-latest
 
     steps:
@@ -33,15 +33,23 @@ jobs:
         run:  |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      # 파이썬 파일 실행
-      - name: Run Python_script
-        run : python testpy.py
-
+          
       # sql 기본값 설정
       - name: Set up mysql connect
         run:  |
           echo '{"host":"'${{ secrets.MYSQL_ENDPOINT }}'","port":3306,"user":"'${{ secrets.MYSQL_USER }}'","password":"'${{ secrets.MYSQL_PASSWORD }}'"}' > ./mysql_info.json
 
+      # sql index control    
+      - name : Run test
+        run : |
+          sudo apt-get update
+          sudo apt-get install -y mysql-server
+          python index_control_sql.py
+
+  #-----------------------------#
+  #병렬처리        
+  python-work-code-{{index}}: # 실제로 돌아가는 부분
+    needs: python-base-code
       # mysql 설치 및 태스트
       - name : Run test
         run : |
@@ -50,41 +58,3 @@ jobs:
           python test_sql.py
 
 
-
-#   mysql-code:
-#     needs: python-code
-#     runs-on: ubuntu-latest
-
-#     steps:
-
-#       # 직접 설치
-#       - name: Set up mysql
-#         run:  |
-#           sudo apt-get update
-#           sudo apt-get install -y mysql-server
-
-#       - name : Let it test
-#         run:  |
-#           mysql -u root
-# #         mysql -h lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com -u admin -p lunchlab0219
-
-
-#------------임시-------------#
-  # mysql-code: # mysql 영역 : 위의 파이썬 코드의 종속성이 필요(병력X)
-  #   needs: python-code
-  #   runs-on : ubuntu-latest
-
-  #   steps:
-  #     # mysql 구동환경 구축
-  #     - uses: mirromutth/mysql-action@v1.1
-  #       with:
-  #         host port: "lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com"
-  #         mysql user: "git a"
-  #         container port: 3306
-  #         mysql database: 'test'
-  #         mysql password: "..."
-
-      # - name : Insert data into mysql
-      #   run:  |
-      #     mysql LOAD DATA INFILE '/github/workspace/test_architecture.csv' 
-      #     INTO TABLE tag_test FIELDS TERMINATED BY ',' ENCLOSED BY '\"' LINES TERMINATED BY '\n' (rest_name, tag, people_cnt);
