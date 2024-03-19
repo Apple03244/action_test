@@ -55,11 +55,11 @@ jobs:
       # mysql 구동환경 구축
       - uses: mirromutth/mysql-action@v1.1
         with:
-          host port: ${{ secrets.MYSQL_ENDPOINT }}
-          mysql user: ${{ secrets.MYSQL_USER }}
+          host port: "lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com"
+          mysql user: "admin"
           container port: 3306
           mysql database: 'test'
-          mysql password: ${{ secrets.MYSQL_PASSWORD }}
+          mysql password: "lunchlab0219"
 
       # - name : Insert data into mysql
       #   run:  |

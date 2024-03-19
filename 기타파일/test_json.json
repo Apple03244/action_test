@@ -1,1 +1,2 @@
-{"host":${{ secrets.MYSQL_ENDPOINT }},"port":3306,"user":${{ secrets.MYSQL_USER }},"passward":${{ secrets.MYSQL_PASSWORD }}}
+{"host":"lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com"
+,"port":3306,"user":"admin","passward":"lunchlab0219"}
