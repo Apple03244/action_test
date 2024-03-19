@@ -69,7 +69,7 @@ jobs:
   #     - uses: mirromutth/mysql-action@v1.1
   #       with:
   #         host port: "lunch-lab-db.c7gaq8m06dlk.ap-southeast-2.rds.amazonaws.com"
-  #         mysql user: "admin"
+  #         mysql user: "git a"
   #         container port: 3306
   #         mysql database: 'test'
   #         mysql password: "..."
